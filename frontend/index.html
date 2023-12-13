@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #displaySection {
+      margin-top: 20px;
+    }
+
+    .productItem {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .actionButtons {
+      display: flex;
+    }
+
+    .deleteButton, .editButton {
+      margin-left: 8px;
+      padding: 6px;
+      cursor: pointer;
+    }
+
+    .deleteButton {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .deleteButton:hover {
+      background-color: #d32f2f;
+    }
+
+    .editButton {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .editButton:hover {
+      background-color: #0b7dda;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Product Form</h2>
+
+  <form id="productForm">
+    <label for="productName">Product Name:</label>
+    <input type="text" id="productName" placeholder="Enter product name" required>
+
+    <label for="productPrice">Product Price:</label>
+    <input type="number" id="productPrice" placeholder="Enter product price" required>
+
+    <label for="productStock">Product Stock:</label>
+    <input type="number" id="productStock" placeholder="Enter product stock" required>
+
+    <button type="button" onclick="submitProductForm()">Submit</button>
+  </form>
+
+  <div id="displaySection">
+    <h3>Product Data:</h3>
+    <ul id="productList"></ul>
+  </div>
+
+  <script>
+    function submitProductForm() {
+      const productName = document.getElementById('productName').value;
+      const productPrice = document.getElementById('productPrice').value;
+      const productStock = document.getElementById('productStock').value;
+
+      // Display the entered data
+      const displaySection = document.getElementById('displaySection');
+      const productList = document.getElementById('productList');
+
+      const listItem = document.createElement('li');
+      listItem.className = 'productItem';
+      listItem.innerHTML = `
+        <div>
+          <strong>Name:</strong> ${productName},
+          <strong>Price:</strong> ${productPrice},
+          <strong>Stock:</strong> ${productStock}
+        </div>
+        <div class="actionButtons">
+          <button class="editButton" onclick="editProduct(this)">Edit</button>
+          <button class="deleteButton" onclick="deleteProduct(this)">Delete</button>
+        </div>
+      `;
+      productList.appendChild(listItem);
+
+      // For demonstration purposes, let's clear the form
+      document.getElementById('productName').value = '';
+      document.getElementById('productPrice').value = '';
+      document.getElementById('productStock').value = '';
+
+      // You may want to perform additional actions here, like sending the data to the server
+    }
+
+    function deleteProduct(button) {
+      // Get the parent element of the button (which is the product item)
+      const productItem = button.parentElement.parentElement;
+
+      // Remove the product item from the display
+      productItem.remove();
+    }
+
+    function editProduct(button) {
+      // Get the parent element of the button (which is the product item)
+      const productItem = button.parentElement.parentElement;
+
+      // Get the product data from the product item
+      const productData = productItem.querySelector('div');
+      const productText = productData.innerText;
+
+      // Extract the product name, price, and stock from the text
+      const [productName, productPrice, productStock] = productText
+        .replace(/(Name|Price|Stock):/g, '')
+        .split(',');
+
+      // Populate the form with the existing data
+      document.getElementById('productName').value = productName.trim();
+      document.getElementById('productPrice').value = productPrice.trim();
+      document.getElementById('productStock').value = productStock.trim();
+
+      // Remove the product item from the display
+      productItem.remove();
+    }
+  </script>
+
+</body>
+</html>

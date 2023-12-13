@@ -1,5 +1,5 @@
 const express = require('express');
-const router = require("./routes/router");
+const router = require("./routers/router");
 require('./databse/connection')
 const app = express();
 const port = process.env.PORT || 3000;

@@ -1,21 +1,19 @@
 {
-  "name": "api-creation",
+  "name": "crud-api-mongo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Creating Restful API using express and fetching the data from database mongo",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node server.js",
-    "dev": "nmodemon server.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "connect": "nodemon /database/connection.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "mongoose": "^8.0.3"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2"
+    "mongoose": "^8.0.2"
   }
 }
